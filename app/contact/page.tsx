@@ -34,7 +34,9 @@ export default function Contact() {
   const [sent, setSent] = useState(false);
   const [err, setErr] = useState("");
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+  function handleChange(
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
     setForm({ ...form, [e.target.name]: e.target.value });
     setErr("");
   }
@@ -55,20 +57,13 @@ export default function Contact() {
       <Header />
       {/* HERO */}
       <section
-        className="relative custom-stars-bg py-20 px-4 flex flex-col items-center min-h-[55vh] overflow-x-hidden"
+        className="relative custom-stars-bg py-20 px-4 flex flex-col items-center min-h-[35vh] overflow-x-hidden"
         style={{
           background:
             "radial-gradient(ellipse 120% 70% at 60% 10%, #273866 0%, #192033 90%)",
         }}
       >
         <div className="max-w-2xl mx-auto flex flex-col items-center">
-          <Image
-            src="/images/robot-key-feature.png"
-            alt="Contact mascot"
-            width={70}
-            height={70}
-            className="mb-5 rounded-2xl shadow-lg"
-          />
           <h1 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-2 drop-shadow text-center">
             <span className="text-blue-400">Let’s Connect.</span>
             <br />

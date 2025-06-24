@@ -55,22 +55,14 @@ export default function FAQ() {
       <Header />
       {/* HERO */}
       <section
-        className="relative custom-stars-bg py-20 px-4 flex flex-col items-center min-h-[55vh] overflow-x-hidden"
+        className="relative custom-stars-bg py-20 px-4 flex flex-col items-center min-h-[30vh] overflow-x-hidden"
         style={{
           background:
             "radial-gradient(ellipse 120% 70% at 60% 10%, #24305c 0%, #181e2f 80%)",
         }}
       >
         <div className="max-w-2xl mx-auto flex flex-col items-center">
-          <div className="mb-4">
-            <Image
-              src="/images/robot-key-feature.png"
-              alt="FAQ mascot"
-              width={64}
-              height={64}
-              className="mx-auto rounded-2xl shadow-lg"
-            />
-          </div>
+          <div className="mb-4"></div>
           <h1 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-2 drop-shadow text-center">
             <span className="text-blue-400">Got questions?</span> <br />
             <span className="text-yellow-300">We’ve got answers!</span>

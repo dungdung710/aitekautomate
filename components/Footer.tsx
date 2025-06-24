@@ -30,7 +30,7 @@ export default function Footer() {
             <FaYoutube />
           </a>
           <a
-            href="mailto:your-email@example.com"
+            href="mailto:aitek.autovn@gmail.com"
             target="_blank"
             aria-label="Email"
             className="hover:text-yellow-300 text-gray-400 transition"

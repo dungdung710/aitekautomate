@@ -108,7 +108,7 @@ export default function Team() {
             Our Core Members
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {MEMBERS.map((m, i) => (
+            {MEMBERS.map((m) => (
               <div
                 key={m.name}
                 className="flex flex-col items-center bg-white/80 rounded-2xl shadow-xl border border-blue-50 px-6 py-8 hover:shadow-2xl transition-all duration-200"

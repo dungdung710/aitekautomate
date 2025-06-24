@@ -11,9 +11,6 @@ const HERO_IMAGES = [
   { src: "/images/halo.png", alt: "AutoMate Robot Xmas" },
 ];
 
-const DEMO_VIDEO = "/videos/videoaction.mp4";
-const TEAM_IMAGE = "/images/team.jpg";
-
 export default function Home() {
   const [index, setIndex] = useState(0);
   const [fade, setFade] = useState(true);

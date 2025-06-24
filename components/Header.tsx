@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 export default function Header() {
   // State để điều khiển header
@@ -24,7 +25,6 @@ export default function Header() {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-    // eslint-disable-next-line
   }, [lastScroll]);
 
   return (
@@ -35,12 +35,7 @@ export default function Header() {
     >
       <nav className="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
         {/* Logo */}
-        <a
-          href="/"
-          className="text-4xl font-extrabold text-blue-200 tracking-tight drop-shadow-lg hover:scale-105 transition-all duration-200"
-        >
-          AITEK
-        </a>
+        <Link href="/">AITEK</Link>
         {/* Menu nav */}
         <ul className="flex gap-7 text-white font-semibold text-lg">
           <li>
