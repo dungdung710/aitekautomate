@@ -6,7 +6,7 @@ export default function FloatingButton() {
     <div className="fixed bottom-7 right-6 z-[120] flex flex-col items-end gap-3">
       {/* Facebook Button */}
       <a
-        href="https://www.facebook.com/profile.php?id=61577698261711"
+        href="https://www.facebook.com/profile.php?id=61578055860285"
         target="_blank"
         rel="noopener"
         className="bg-blue-600 hover:bg-blue-700 text-white shadow-2xl rounded-full p-4 flex items-center gap-2 animate-bounce"
