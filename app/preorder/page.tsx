@@ -52,7 +52,7 @@ export default function Preorder() {
             <span className="text-3xl mb-2 text-blue-200">🚀</span>
             {/* BUTTON: Sẽ dẫn link tới Google Form */}
             <a
-              href="https://your-google-form-link.com"
+              href="https://docs.google.com/forms/d/e/1FAIpQLScD17OQ3xDCJNX0MTy_b_dBOllzgAM73I_9XPwe3TDuLJuHwA/viewform?usp=dialog"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-gradient-to-r from-yellow-400 to-yellow-300 hover:from-yellow-300 hover:to-yellow-400 text-blue-900 font-bold py-4 px-12 rounded-2xl shadow-lg text-xl transition border-2 border-yellow-100"

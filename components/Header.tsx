@@ -35,7 +35,22 @@ export default function Header() {
     >
       <nav className="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
         {/* Logo */}
-        <Link href="/">AITEK</Link>
+        <Link
+          href="/"
+          className="flex items-center gap-2 group select-none"
+          aria-label="Back to home"
+        >
+          <span
+            className="text-[2.2rem] md:text-[2.2rem] font-bold text-blue-100 tracking-tight drop-shadow 
+            hover:text-blue-400 transition-all duration-200 leading-none"
+            style={{
+              fontFamily: "'Geist', 'Inter', 'Arial', sans-serif",
+              letterSpacing: "-0.04em",
+            }}
+          >
+            AITEK
+          </span>
+        </Link>
         {/* Menu nav */}
         <ul className="flex gap-7 text-white font-semibold text-lg">
           <li>

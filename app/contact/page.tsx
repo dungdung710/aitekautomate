@@ -6,7 +6,7 @@ const SOCIALS = [
   {
     name: "Email",
     icon: "✉️",
-    value: "aitek.automate@gmail.com",
+    value: "aitek.autovn@gmail.com",
     link: "mailto:aitek.autovn@gmail.com",
     color: "text-blue-600",
   },
@@ -14,14 +14,14 @@ const SOCIALS = [
     name: "Facebook",
     icon: "📘",
     value: "facebook.com/aitek.automate",
-    link: "https://facebook.com/aitek.automate",
+    link: "https://www.facebook.com/profile.php?id=61577698261711",
     color: "text-blue-500",
   },
   {
     name: "Zalo",
     icon: "💬",
-    value: "zalo.me/123456789",
-    link: "https://zalo.me/123456789",
+    value: "0966937961",
+    link: "https://zalo.me/0966937961",
     color: "text-cyan-600",
   },
 ];
