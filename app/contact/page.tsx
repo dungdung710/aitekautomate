@@ -14,7 +14,7 @@ const SOCIALS = [
     name: "Facebook",
     icon: "📘",
     value: "facebook.com/aitek.automate",
-    link: "https://www.facebook.com/profile.php?id=61577698261711",
+    link: "https://www.facebook.com/profile.php?id=61578055860285",
     color: "text-blue-500",
   },
   {

@@ -15,7 +15,7 @@ export default function Footer() {
         {/* Social */}
         <div className="flex gap-6 text-2xl items-center justify-center mt-2 md:mt-0">
           <a
-            href="https://www.facebook.com/profile.php?id=61577698261711"
+            href="https://www.facebook.com/profile.php?id=61578055860285"
             target="_blank"
             aria-label="Facebook"
             className="hover:text-blue-400 text-gray-400 transition"
