@@ -19,14 +19,14 @@ const MASCOTS = [
 ];
 
 const PROTOTYPE_SLIDES = [
-  { src: "/images/prototype1.jpg", alt: "Real Prototype 1" },
+  { src: "/images/prototype1.JPG", alt: "Real Prototype 1" },
   { src: "/images/prototype2.jpg", alt: "Real Prototype 2" },
   { src: "/images/prototype3.jpg", alt: "Real Prototype 3" },
   { src: "/images/prototype4.jpg", alt: "Real Prototype 4" },
 ];
 
 const ARCH_IMAGE = "/images/architecture.png";
-const DEMO_IMAGE = "/images/m1.jpg";
+const DEMO_IMAGE = "/images/prototype1.JPG";
 
 const FEATURES = [
   {
