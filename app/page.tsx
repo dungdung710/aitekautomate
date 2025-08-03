@@ -5,13 +5,13 @@ import Footer from "../components/Footer";
 import { useState, useEffect } from "react";
 
 const HERO_IMAGES = [
-  { src: "/images/xmas.png", alt: "AutoMate Robot Halloween" },
-  { src: "/images/tet.png", alt: "AutoMate Robot Racing" },
-  { src: "/images/F1.png", alt: "AutoMate Robot Tet" },
-  { src: "/images/halo.png", alt: "AutoMate Robot Xmas" },
-  { src: "/images/m5.jpg", alt: "AutoMate Robot Xmas" },
-  { src: "/images/m6.jpg", alt: "AutoMate Robot Xmas" },
-  { src: "/images/m7.jpg", alt: "AutoMate Robot Xmas" },
+  { src: "/images/xmas.png", alt: "AutoMate Robot Xmas" },
+  { src: "/images/tet.png", alt: "AutoMate Robot Tet" },
+  { src: "/images/F1.png", alt: "AutoMate Robot Racing" },
+  { src: "/images/halo.png", alt: "AutoMate Robot Halloween" },
+  { src: "/images/m5.png", alt: "AutoMate Robot HCMUT" },
+  { src: "/images/m6.png", alt: "AutoMate Robot Gundam" },
+  { src: "/images/m7.png", alt: "AutoMate Robot Marvel" },
 ];
 
 export default function Home() {
