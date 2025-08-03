@@ -9,6 +9,9 @@ const HERO_IMAGES = [
   { src: "/images/tet.png", alt: "AutoMate Robot Racing" },
   { src: "/images/F1.png", alt: "AutoMate Robot Tet" },
   { src: "/images/halo.png", alt: "AutoMate Robot Xmas" },
+  { src: "/images/m5.jpg", alt: "AutoMate Robot Xmas" },
+  { src: "/images/m6.jpg", alt: "AutoMate Robot Xmas" },
+  { src: "/images/m7.jpg", alt: "AutoMate Robot Xmas" },
 ];
 
 export default function Home() {

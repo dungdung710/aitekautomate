@@ -1,26 +1,33 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
-// Mascot images
 const MASCOTS = [
-  { src: "/images/xmas.png", alt: "Xmas Edition", name: "Xmas" },
+  { src: "/images/m1.png", alt: "Xmas Edition", name: "Xmas" },
   {
-    src: "/images/tet.png",
+    src: "/images/m2.png",
     alt: "Lunar New Year Edition",
     name: "Lunar New Year",
   },
-  { src: "/images/F1.png", alt: "Racing Edition", name: "Racing" },
-  { src: "/images/halo.png", alt: "Halloween Edition", name: "Halloween" },
+  { src: "/images/m3.png", alt: "Racing Edition", name: "Racing" },
+  { src: "/images/m4.png", alt: "Halloween Edition", name: "Halloween" },
+  { src: "/images/m5.png", alt: "HCMUT Edition", name: "HCMUT" },
+  { src: "/images/m6.png", alt: "Gundam Edition", name: "Gundam" },
+  { src: "/images/m7.png", alt: "Marvel Edition", name: "Marvel" },
 ];
 
-// Ảnh cho các section dưới
+const PROTOTYPE_SLIDES = [
+  { src: "/images/prototype1.jpg", alt: "Real Prototype 1" },
+  { src: "/images/prototype2.jpg", alt: "Real Prototype 2" },
+  { src: "/images/prototype3.jpg", alt: "Real Prototype 3" },
+  { src: "/images/prototype4.jpg", alt: "Real Prototype 4" },
+];
+
 const ARCH_IMAGE = "/images/architecture.png";
 const DEMO_IMAGE = "/images/m1.jpg";
 
-// Features array chỉ dùng emoji
 const FEATURES = [
   {
     emoji: "🔑",
@@ -46,15 +53,32 @@ const FEATURES = [
 ];
 
 export default function Product() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false); // Mascot modal
   const [current, setCurrent] = useState(0);
   const [zoom, setZoom] = useState(false);
+
+  // ---- Prototype slideshow state ----
+  const [protoSlide, setProtoSlide] = useState(0);
+  const [protoOpen, setProtoOpen] = useState(false); // modal cho prototype
+  const [protoPaused, setProtoPaused] = useState(false);
+  const protoTimer = useRef<NodeJS.Timeout | null>(null);
+
+  // Tự động chuyển slide prototype
+  useEffect(() => {
+    if (protoPaused || protoOpen) return;
+    protoTimer.current = setTimeout(() => {
+      setProtoSlide((s) => (s + 1) % PROTOTYPE_SLIDES.length);
+    }, 2500);
+    return () => {
+      if (protoTimer.current) clearTimeout(protoTimer.current);
+    };
+  }, [protoSlide, protoPaused, protoOpen]);
 
   return (
     <>
       <Header />
 
-      {/* HERO – Product Showroom */}
+      {/* HERO */}
       <section
         className="relative custom-stars-bg py-16 px-4 flex flex-col items-center min-h-[60vh] overflow-x-hidden"
         style={{
@@ -66,81 +90,163 @@ export default function Product() {
           <span className="text-blue-400">Choose Your Style</span>
         </h1>
         <p className="text-lg md:text-xl font-semibold mb-10 text-center max-w-2xl bg-gradient-to-r from-blue-200 via-white to-yellow-300 bg-clip-text text-transparent drop-shadow">
-          One product, four mascots.
+          One product,{" "}
+          <span className="font-bold">{MASCOTS.length + 0} mascots</span>.
           <br />
           <span className="font-bold bg-gradient-to-r from-blue-400 to-yellow-400 bg-clip-text text-transparent">
             Same tech. Unique personality.
           </span>
         </p>
-        {/* Mascots Gallery */}
-        <div className="flex flex-wrap gap-12 justify-center items-end mb-14">
-          {MASCOTS.map((m, i) => (
-            <div
-              key={m.alt}
-              className="flex flex-col items-center group cursor-pointer transition-all"
-              onClick={() => {
-                setOpen(true);
-                setCurrent(i);
-              }}
-              tabIndex={0}
-              aria-label={`Preview mascot ${m.name}`}
-            >
-              <div
-                className="rounded-[2rem] bg-gradient-to-br from-blue-400 via-blue-200 to-yellow-300 shadow-2xl"
-                style={{
-                  width: "clamp(265px, 24vw, 420px)",
-                  height: "clamp(180px, 16vw, 260px)",
-                  minWidth: 220,
-                  minHeight: 150,
-                  padding: 0,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                {/* Inner content */}
-                <div className="w-[98%] h-[96%] bg-[#171f3d] rounded-[1.6rem] flex items-center justify-center overflow-hidden">
-                  <Image
-                    src={m.src}
-                    alt={m.alt}
-                    width={350}
-                    height={210}
-                    className="object-contain select-none pointer-events-none transition-all scale-100 group-hover:scale-105"
+
+        {/* MASCOT GALLERY (8 slot: 7 mascot + 1 slideshow prototype) */}
+        <div
+          className="
+          grid gap-10 md:grid-cols-4 grid-cols-2 
+          md:gap-y-16 gap-y-8 w-full max-w-6xl justify-center mb-12
+        "
+        >
+          {Array.from({ length: 8 }).map((_, i) => {
+            // Slot thứ 8: hiển thị slideshow prototype
+            if (i === 7) {
+              return (
+                <div
+                  key="prototype-slideshow"
+                  className="flex flex-col items-center group transition-all w-full"
+                >
+                  <div
+                    className="rounded-[2rem] bg-gradient-to-br from-blue-400 via-blue-200 to-yellow-300 shadow-2xl flex items-center justify-center relative"
                     style={{
-                      maxWidth: "calc(100% - 4px)",
-                      maxHeight: "92%",
-                      borderRadius: "1.5rem",
+                      width: "clamp(180px, 21vw, 270px)",
+                      height: "clamp(140px, 16vw, 190px)",
+                      minWidth: 150,
+                      minHeight: 110,
+                      cursor: "pointer",
                     }}
-                    draggable={false}
-                    priority={i === 0}
-                  />
+                    tabIndex={0}
+                    onMouseEnter={() => setProtoPaused(true)}
+                    onMouseLeave={() => setProtoPaused(false)}
+                    onClick={() => setProtoOpen(true)}
+                    aria-label="Open prototype slideshow"
+                  >
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setProtoSlide(
+                          (protoSlide - 1 + PROTOTYPE_SLIDES.length) %
+                            PROTOTYPE_SLIDES.length
+                        );
+                      }}
+                      className="absolute left-2 top-1/2 -translate-y-1/2 z-10 text-3xl text-blue-500 bg-white/70 rounded-full px-2 hover:text-yellow-500"
+                      aria-label="Previous prototype"
+                      type="button"
+                    >
+                      ‹
+                    </button>
+                    <Image
+                      src={PROTOTYPE_SLIDES[protoSlide].src}
+                      alt={PROTOTYPE_SLIDES[protoSlide].alt}
+                      width={220}
+                      height={120}
+                      className="object-contain rounded-xl border-2 border-blue-100 bg-gray-50"
+                      style={{
+                        maxWidth: "calc(100% - 32px)",
+                        maxHeight: "85%",
+                      }}
+                      draggable={false}
+                    />
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setProtoSlide(
+                          (protoSlide + 1) % PROTOTYPE_SLIDES.length
+                        );
+                      }}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 z-10 text-3xl text-blue-500 bg-white/70 rounded-full px-2 hover:text-yellow-500"
+                      aria-label="Next prototype"
+                      type="button"
+                    >
+                      ›
+                    </button>
+                  </div>
+                  <span
+                    className="mt-4 text-xl md:text-2xl font-bold bg-gradient-to-r from-yellow-400 via-blue-500 to-blue-400 bg-clip-text text-transparent transition"
+                    style={{ letterSpacing: "0.07em" }}
+                  >
+                    Real Prototype
+                  </span>
+                  {/* Dots */}
+                  <div className="flex gap-1 mt-2">
+                    {PROTOTYPE_SLIDES.map((_, idx) => (
+                      <span
+                        key={idx}
+                        className={`block w-2 h-2 rounded-full ${
+                          idx === protoSlide ? "bg-blue-500" : "bg-gray-300"
+                        }`}
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <span
-                className="mt-6 text-2xl md:text-3xl font-extrabold tracking-widest bg-gradient-to-r from-yellow-400 via-blue-500 to-blue-400 bg-clip-text text-transparent drop-shadow-lg group-hover:from-blue-400 group-hover:to-yellow-400 transition"
-                style={{ letterSpacing: "0.07em" }}
-              >
-                {m.name}
-              </span>
-            </div>
-          ))}
+              );
+            }
+            // Render mascot bình thường
+            if (i < MASCOTS.length) {
+              const m = MASCOTS[i];
+              return (
+                <div
+                  key={m.alt}
+                  className="flex flex-col items-center group cursor-pointer transition-all"
+                  onClick={() => {
+                    setOpen(true);
+                    setCurrent(i);
+                  }}
+                  tabIndex={0}
+                  aria-label={`Preview mascot ${m.name}`}
+                >
+                  <div
+                    className="rounded-[2rem] bg-gradient-to-br from-blue-400 via-blue-200 to-yellow-300 shadow-2xl"
+                    style={{
+                      width: "clamp(180px, 21vw, 270px)",
+                      height: "clamp(140px, 16vw, 190px)",
+                      minWidth: 150,
+                      minHeight: 110,
+                      padding: 0,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <div className="w-[97%] h-[94%] bg-[#171f3d] rounded-[1.3rem] flex items-center justify-center overflow-hidden">
+                      <Image
+                        src={m.src}
+                        alt={m.alt}
+                        width={240}
+                        height={140}
+                        className="object-contain select-none pointer-events-none transition-all scale-100 group-hover:scale-105"
+                        style={{
+                          maxWidth: "calc(100% - 4px)",
+                          maxHeight: "90%",
+                          borderRadius: "1rem",
+                        }}
+                        draggable={false}
+                        priority={i === 0}
+                      />
+                    </div>
+                  </div>
+                  <span
+                    className="mt-4 text-xl md:text-2xl font-bold bg-gradient-to-r from-yellow-400 via-blue-500 to-blue-400 bg-clip-text text-transparent group-hover:from-blue-400 group-hover:to-yellow-400 transition"
+                    style={{ letterSpacing: "0.07em" }}
+                  >
+                    {m.name}
+                  </span>
+                </div>
+              );
+            }
+            // slot trống không render gì
+            return <div key={i}></div>;
+          })}
         </div>
-        {/* Action buttons */}
-        <div className="flex gap-4 mt-1 justify-center">
-          <a
-            href="/preorder"
-            className="bg-gradient-to-r from-yellow-400 to-yellow-300 hover:from-yellow-300 hover:to-yellow-400 text-blue-900 font-bold py-3 px-8 rounded-xl shadow-lg text-lg transition"
-          >
-            Pre-order Now
-          </a>
-          <a
-            href="#features"
-            className="border border-blue-200 text-white hover:bg-blue-600 hover:text-yellow-300 font-semibold py-3 px-8 rounded-xl transition text-lg"
-          >
-            See Features
-          </a>
-        </div>
-        {/* Modal (lightbox, full screen) */}
+
+        {/* MASCOT MODAL */}
         {open && (
           <div
             className="fixed z-[120] inset-0 bg-black/80 flex items-center justify-center transition"
@@ -150,22 +256,22 @@ export default function Product() {
             role="dialog"
           >
             <div
-              className="relative bg-gradient-to-br from-white via-gray-50 to-blue-50 rounded-[2.5rem] shadow-2xl p-8 flex flex-col items-center animate-fade-in max-w-[98vw] max-h-[93vh]"
+              className="relative bg-gradient-to-br from-white via-gray-50 to-blue-50 rounded-[2.5rem] shadow-2xl p-8 flex flex-col items-center animate-fade-in max-w-[95vw] max-h-[90vh]"
               onClick={(e) => e.stopPropagation()}
             >
               <Image
                 src={MASCOTS[current].src}
                 alt={MASCOTS[current].name}
-                width={900}
-                height={700}
-                className="rounded-[2.1rem] mb-5 w-full h-auto max-h-[76vh] object-contain"
+                width={650}
+                height={400}
+                className="rounded-2xl mb-5 w-full h-auto max-h-[65vh] object-contain"
                 style={{
                   boxShadow: "0 8px 48px 0 #2262e055,0 2px 32px 0 #ffd84344",
                   border: "5px solid #eaeefa",
                   background: "linear-gradient(120deg,#f7fafd,#e7f0ff 80%)",
                 }}
               />
-              <div className="text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-r from-blue-500 via-blue-800 to-yellow-500 bg-clip-text text-transparent text-center">
+              <div className="text-2xl md:text-3xl font-bold mb-2 bg-gradient-to-r from-blue-500 via-blue-800 to-yellow-500 bg-clip-text text-transparent text-center">
                 {MASCOTS[current].name} Edition
               </div>
               <button
@@ -196,8 +302,82 @@ export default function Product() {
             </div>
           </div>
         )}
-      </section>
 
+        {/* PROTOTYPE MODAL */}
+        {protoOpen && (
+          <div
+            className="fixed z-[120] inset-0 bg-black/80 flex items-center justify-center transition"
+            onClick={() => setProtoOpen(false)}
+            tabIndex={-1}
+            aria-modal="true"
+            role="dialog"
+            onMouseEnter={() => setProtoPaused(true)}
+            onMouseLeave={() => setProtoPaused(false)}
+          >
+            <div
+              className="relative bg-gradient-to-br from-white via-gray-50 to-blue-50 rounded-[2.5rem] shadow-2xl p-8 flex flex-col items-center animate-fade-in max-w-[95vw] max-h-[90vh]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Image
+                src={PROTOTYPE_SLIDES[protoSlide].src}
+                alt={PROTOTYPE_SLIDES[protoSlide].alt}
+                width={650}
+                height={400}
+                className="rounded-2xl mb-5 w-full h-auto max-h-[65vh] object-contain"
+                style={{
+                  boxShadow: "0 8px 48px 0 #2262e055,0 2px 32px 0 #ffd84344",
+                  border: "5px solid #eaeefa",
+                  background: "linear-gradient(120deg,#f7fafd,#e7f0ff 80%)",
+                }}
+              />
+              <div className="text-2xl md:text-3xl font-bold mb-2 bg-gradient-to-r from-blue-500 via-blue-800 to-yellow-500 bg-clip-text text-transparent text-center">
+                Real Prototype
+              </div>
+              <button
+                onClick={() => setProtoOpen(false)}
+                className="absolute top-4 right-7 text-gray-500 hover:text-red-400 text-3xl font-bold"
+                aria-label="Close preview"
+              >
+                ×
+              </button>
+              <div className="flex gap-12 mt-3">
+                <button
+                  onClick={() =>
+                    setProtoSlide(
+                      (protoSlide - 1 + PROTOTYPE_SLIDES.length) %
+                        PROTOTYPE_SLIDES.length
+                    )
+                  }
+                  className="text-4xl font-bold text-blue-500 hover:text-yellow-500 px-4 py-1 rounded-full bg-blue-50/50 shadow"
+                  aria-label="Prev"
+                >
+                  ‹
+                </button>
+                <button
+                  onClick={() =>
+                    setProtoSlide((protoSlide + 1) % PROTOTYPE_SLIDES.length)
+                  }
+                  className="text-4xl font-bold text-blue-500 hover:text-yellow-500 px-4 py-1 rounded-full bg-blue-50/50 shadow"
+                  aria-label="Next"
+                >
+                  ›
+                </button>
+              </div>
+              {/* Dots */}
+              <div className="flex gap-1 mt-4">
+                {PROTOTYPE_SLIDES.map((_, idx) => (
+                  <span
+                    key={idx}
+                    className={`block w-2 h-2 rounded-full ${
+                      idx === protoSlide ? "bg-blue-500" : "bg-gray-300"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      </section>
       {/* SYSTEM ARCHITECTURE */}
       <section
         className="relative py-20 bg-gradient-to-b from-[#182349] via-[#f7fafd] to-white"
