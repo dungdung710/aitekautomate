@@ -20,13 +20,13 @@ const MASCOTS = [
 
 const PROTOTYPE_SLIDES = [
   { src: "/images/prototype1.jpeg", alt: "Real Prototype 1" },
-  { src: "/images/prototype2.jpg", alt: "Real Prototype 2" },
-  { src: "/images/prototype3.jpg", alt: "Real Prototype 3" },
-  { src: "/images/prototype4.jpg", alt: "Real Prototype 4" },
+  { src: "/images/prototype2.jpeg", alt: "Real Prototype 2" },
+  { src: "/images/prototype3.jpeg", alt: "Real Prototype 3" },
+  { src: "/images/prototype4.jpeg", alt: "Real Prototype 4" },
 ];
 
 const ARCH_IMAGE = "/images/architecture.png";
-const DEMO_IMAGE = "/images/prototype1.JPG";
+const DEMO_IMAGE = "/images/prototype1.jpeg";
 
 const FEATURES = [
   {
